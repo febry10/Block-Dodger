@@ -68,7 +68,7 @@ function runGame() {
     world.reset();
     accumulator = 0;
     screen = SCREEN_PLAY;
-    announce(`Playing. ${LIVES} lives.`);
+    announce(`Playing. ${LIVES} lives. Collect coins for bonus points.`);
   }
 
   function endGame() {
@@ -100,6 +100,7 @@ function runGame() {
     const events = world.step(STEP, input.direction(), false);
     if (events & EVENT_OVER) endGame();
     else if (events & EVENT_HIT) announce(world.state.lives === 1 ? 'Hit. 1 life left.' : `Hit. ${world.state.lives} lives left.`);
+    else if (world.state.score > 0 && world.state.score % 10 === 0) announce(`Combo milestone! Score ${world.state.score}.`);
   }
 
   function frame(now) {
@@ -126,7 +127,7 @@ function runGame() {
     }
   });
 
-  announce('Block Dodger. Press Space or click to start.');
+  announce('Block Dodger. Press Space or click to start. Catch coins, dodge blocks, and chase a high score.');
   requestAnimationFrame(frame);
 }
 

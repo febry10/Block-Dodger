@@ -19,8 +19,10 @@ import { buildDossier } from './vendor/makefun-game.ts';
 
 const here = fileURLToPath(new URL('.', import.meta.url));
 const out = process.env.MAKEFUN_OUTPUT_DIR ?? '/output';
+const buildLabel = 'Neon Coin Run / authored build 2';
 
 mkdirSync(out, { recursive: true });
+writeFileSync(join(out, 'build-info.json'), JSON.stringify({ name: buildLabel, source: 'authored-main' }));
 cpSync(join(here, 'game'), join(out, 'game'), { recursive: true });
 mkdirSync(join(out, 'screenshots'), { recursive: true });
 if (existsSync(join(here, 'screenshots'))) cpSync(join(here, 'screenshots'), join(out, 'screenshots'), { recursive: true });
